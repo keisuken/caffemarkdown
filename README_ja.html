@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>[English(MD)](README.md)</title>
+    <style type="text/css">
+body {
+  margin: 0 0.5em 0 0.5em;
+}
+
+h1 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  color: white;
+  background-color: black;
+  font-family: SanSerif;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h2 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  font-size: 140%;
+  color: white;
+  background-color: black;
+  font-family: SanSerif;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h3 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  font-size: 130%;
+  color: white;
+  background-color: black;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h4 {
+  margin: 0 0 1em 0;
+  font-size: 120%;
+  border-bottom: solid 3px black;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h5 {
+  margin: 0 0 1em 0;
+  font-size: 100%;
+  border-bottom: solid 1px black;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h6 {
+  margin: 0 1em 1em 1em;
+  font-size: 100%;
+  font-weight: normal;
+  font-family: SanSerif;
+  font-decoration: underline;
+  text-shadow: none;
+}
+
+p {
+  margin: 1em 1em 1em 1em;
+  font-family: Serif;
+}
+ 
+
+pre {
+  margin: 1em 1em 1em 1em;
+  padding: 1em;
+  border-radius: 0.5em;
+  border: solid 1px black;
+  font-size: 100%;
+  color: #101010;
+  background-color: white:
+}
+
+a {
+  color: #2020a0;
+}
+
+a:visited {
+  color: #202080;
+}
+
+blockquote {
+  margin: 1em 1em 1em 1em;
+  padding: 0.2em;
+  background-color: white;
+  border: black solid;
+  border-width: 0 0 0 4px;
+  text-decoration: none;
+}
+
+table {
+  margin: 1em 1em 1em 1em;
+  border: 1px black solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  padding: 0.2em;
+  border: black solid;
+  border-width: 0 0 1px 1px;
+  color: white;
+  background-color: black;
+  font-family: SansSerif;
+  font-weight: normal;
+  text-align: center;
+}
+
+td {
+  padding: 0.2em;
+  border: black solid;
+  border-width: 0 0 1px 1px;
+  font-family: Serif;
+  backgrounc-color: white;
+}
+
+caption {
+  padding: 0.2em;
+  font-familly: SansSerif;
+  font-weight: normal;
+}
+
+hr {
+  margin: 1em 0 1em 0;
+  border: solid 2px black;
+}
+
+li {
+  font-family: Serif;
+}</style>
+  </head>
+  <body>
+<p><a href="README.md">English(MD)</a>
+<a href="README.html">English(HTML)</a></p>
+<h1 id="caffè-markdown">Caffè Markdown</h1>
+<p>JavaおよびScala用のMarkdown変換ツールです。</p>
+<p>内部で<a href="https://github.com/chjj/marked">marked</a>を使っています。</p>
+<h2 id="導入">導入</h2>
+<pre><code>$ git clone git://github.com/keisuken/caffemarkdown.git
+</code></pre><ul>
+<li><strong>Java 7ランタイムが必要です</strong></li>
+<li>Copy from JRE jfxrt.jar to $CAFFEMARKDOWN_HOME/lib</li>
+</ul>
+<h2 id="使い方">使い方</h2>
+<h3 id="コマンドライン">コマンドライン</h3>
+<p>Windowsの場合:</p>
+<pre><code>caffemd [style_name] input
+</code></pre><p>MacまたはLinuxの場合:</p>
+<pre><code>caffemd.sh [style_name] input
+</code></pre><p>例(Windowsの場合):</p>
+<pre><code>caffemd default example.md
+</code></pre><h3 id="gui-java-fx-">GUI(Java FX)</h3>
+<p>caffemdgui.bat or caffemdgui.shをクリックして起動してください</p>
+<h3 id="scala">Scala</h3>
+<pre><code>import jp.cappuccino.tools.markdown.Markdown
+...
+
+// Create markdown generator.
+val markdown = new Markdown
+
+// Generate HTML.
+val source = &quot;# Header\n\nHello, Markdown tool!&quot;
+val style = Style.load(&quot;.&quot;, Style.Default)
+val title = &quot;Hello, Markdown!&quot;
+val html = markdown.generate(source, style, title)
+
+// Print HTML.
+println(html)
+</code></pre><pre><code>import jp.cappuccino.tools.markdown.Markdown
+...
+
+// Generate Markdown file.
+val home = new File(&quot;.&quot;)
+val styleName = Style.Default
+val inpFile = new File(&quot;example.md&quot;)
+val html = Markdown.generate(home, styleName, inpFile)
+
+// Print HTML.
+println(hrml)
+</code></pre><h2 id="api-reference">API Reference</h2>
+<p><a href="docs/api/index.html">Caffè Markdown</a> を見てください。</p>
+<h2 id="license">License</h2>
+<p>Copyright (C) 2014, NISHIMOTO Keisuke. (MIT License)</p>
+<p>詳しくは、以下をご確認ください。</p>
+<ul>
+<li><a href="LICENSE.txt">LICENSE</a></li>
+<li><a href="marked-LICENSE.txt">marked LICENSE</a></li>
+<li><a href="Scala-LICENSE.txt">Scala LICENSE</a></li>
+</ul>
+  </body>
+</html>

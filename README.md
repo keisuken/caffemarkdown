@@ -1,3 +1,7 @@
+[Japanese(MD)](README_ja.md)
+[Japanese(HTML)](README_ja.html)
+
+
 # Caffè Markdown
 
 Markdown generate tool for Java and Scala.
@@ -12,8 +16,8 @@ Used by [marked](https://github.com/chjj/marked).
 $ git clone git://github.com/keisuken/caffemarkdown.git
 ```
 
-**Java 7 Runtime required**
-
+* **Java 7 Runtime required**
+* Copy from JRE jfxrt.jar to $CAFFEMARKDOWN_HOME/lib
 
 
 ## Usage

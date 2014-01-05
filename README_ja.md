@@ -1,3 +1,7 @@
+[English(MD)](README.md)
+[English(HTML)](README.html)
+
+
 # Caffè Markdown
 
 JavaおよびScala用のMarkdown変換ツールです。
@@ -12,7 +16,8 @@ JavaおよびScala用のMarkdown変換ツールです。
 $ git clone git://github.com/keisuken/caffemarkdown.git
 ```
 
-Java 7ランタイムが必要です。
+* **Java 7ランタイムが必要です**
+* Copy from JRE jfxrt.jar to $CAFFEMARKDOWN_HOME/lib
 
 
 
