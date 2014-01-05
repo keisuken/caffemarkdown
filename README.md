@@ -6,8 +6,7 @@
 
 Markdown generate tool for Java and Scala.
 
-Used by [marked](https://github.com/chjj/marked).
-
+[marked](https://github.com/chjj/marked) is used for conversion of a markdown file.
 
 
 ## Install
