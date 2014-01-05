@@ -9,18 +9,18 @@ Used by [marked](https://github.com/chjj/marked).
 ## Install
 
 ```
-$ git clone git://github.com/keisuken/caffemarkdown/caffemarkdown.git
+$ git clone git://github.com/keisuken/caffemarkdown.git
 ```
 
 **Java 7 Runtime required**
 
 
 
-## 使い方
+## Usage
 
 
 
-### コマンドライン
+### Command line
 
 Windows:
 

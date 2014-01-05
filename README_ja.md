@@ -9,7 +9,7 @@ JavaおよびScala用のMarkdown変換ツールです。
 ## 導入
 
 ```
-$ git clone git://github.com/keisuken/caffemarkdown/caffemarkdown.git
+$ git clone git://github.com/keisuken/caffemarkdown.git
 ```
 
 Java 7ランタイムが必要です。
