@@ -1,0 +1,107 @@
+body {
+  margin: 0 0.5em 0 0.5em;
+}
+
+h1 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  font-family: SanSerif;
+  font-weight: normal;
+}
+
+h2 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  font-size: 140%;
+  font-family: SanSerif;
+  font-weight: normal;
+}
+
+h3 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  font-size: 130%;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+}
+
+h4 {
+  margin: 0 0 1em 0;
+  font-size: 120%;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+}
+
+h5 {
+  margin: 0 0 1em 0;
+  font-size: 100%;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+}
+
+h6 {
+  margin: 0 1em 1em 1em;
+  font-size: 100%;
+  font-weight: normal;
+  font-family: SanSerif;
+}
+
+p {
+  margin: 1em 1em 1em 1em;
+  font-family: Serif;
+}
+ 
+
+pre {
+  margin: 1em 1em 1em 1em;
+  padding: 1em;
+  font-size: 100%;
+}
+
+a {
+  color: #2020a0;
+}
+
+a:visited {
+  color: #202080;
+}
+
+blockquote {
+  margin: 1em 1em 1em 1em;
+  padding: 0.2em;
+}
+
+table {
+  margin: 1em 1em 1em 1em;
+}
+
+th {
+  padding: 0.2em;
+  font-family: SansSerif;
+  font-weight: normal;
+  text-align: center;
+}
+
+td {
+  padding: 0.2em;
+  font-family: Serif;
+  backgrounc-color: white;
+}
+
+caption {
+  padding: 0.2em;
+  font-familly: SansSerif;
+  font-weight: normal;
+}
+
+hr {
+  margin: 1em 0 1em 0;
+  border: solid 2px #c0c0c0;
+}
+
+li {
+  font-family: Serif;
+}

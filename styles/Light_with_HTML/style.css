@@ -1,0 +1,141 @@
+body {
+  margin: 0 0.5em 0 0.5em;
+}
+
+h1 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  border-bottom: solid 2px #c0c0c0;
+  color: black;
+  background-color: #e8e8e8;
+  font-family: SanSerif;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h2 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  border-bottom: solid 2px #c0c0c0;
+  font-size: 140%;
+  color: #202020;
+  background-color: #f0f0f0;
+  font-family: SanSerif;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h3 {
+  margin: 1em 0 1em 0;
+  padding: 0.2em;
+  border-bottom: solid 1px #c0c0c0;
+  font-size: 130%;
+  color: #202020;
+  background-color: #f8f8f8;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h4 {
+  margin: 0 0 1em 0;
+  font-size: 120%;
+  border-bottom: solid 3px #c0c0c0;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h5 {
+  margin: 0 0 1em 0;
+  font-size: 100%;
+  border-bottom: solid 1px #c0c0c0;
+  font-family: SanSerif;
+  font-decoration: underline;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+h6 {
+  margin: 0 1em 1em 1em;
+  font-size: 100%;
+  font-weight: normal;
+  font-family: SanSerif;
+  font-decoration: underline;
+  text-shadow: none;
+}
+
+p {
+  margin: 1em 1em 1em 1em;
+  font-family: Serif;
+}
+ 
+
+pre {
+  margin: 1em 1em 1em 1em;
+  padding: 1em;
+  border-radius: 0.5em;
+  border: solid 1px #c0c0c0;
+  font-size: 100%;
+  color: #101010;
+  background-color: #f0f0f0;
+}
+
+a {
+  color: #2020a0;
+}
+
+a:visited {
+  color: #202080;
+}
+
+blockquote {
+  margin: 1em 1em 1em 1em;
+  padding: 0.2em;
+  background-color: #f0f0f0;
+  border: #808080 solid;
+  border-width: 0 0 0 4px;
+  text-decoration: none;
+}
+
+table {
+  margin: 1em 1em 1em 1em;
+  border: 1px #c0c0c0 solid;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  padding: 0.2em;
+  border: #c0c0c0 solid;
+  border-width: 0 0 1px 1px;
+  background-color: #f0f0f0;
+  font-family: SansSerif;
+  font-weight: normal;
+  text-align: center;
+}
+
+td {
+  padding: 0.2em;
+  border: #c0c0c0 solid;
+  border-width: 0 0 1px 1px;
+  font-family: Serif;
+  backgrounc-color: white;
+}
+
+caption {
+  padding: 0.2em;
+  font-familly: SansSerif;
+  font-weight: normal;
+}
+
+hr {
+  margin: 1em 0 1em 0;
+  border: solid 2px #c0c0c0;
+}
+
+li {
+  font-family: Serif;
+}
