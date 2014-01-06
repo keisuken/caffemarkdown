@@ -15,6 +15,7 @@ import javafx.scene.control.TextField
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.web.WebView
 
 import concurrent.future
 import concurrent.ExecutionContext.Implicits.global
@@ -39,15 +40,15 @@ class PaneApplication(
 ) extends javafx.application.Application {
 
   @throws(classOf[Exception])
-  override def start(primaryStage: Stage) {
-    primaryStage.setTitle(title)
+  override def start(stage: Stage) {
     val fxmlLoader = new FXMLLoader(resource(fxmlPath))
     fxmlLoader.setController(controller)
     val pane = fxmlLoader.load.asInstanceOf[Pane]
-    controller.init(primaryStage, pane)
+    controller.init(stage, pane)
     val scene = new Scene(pane)
-    primaryStage.setScene(scene)
-    primaryStage.show
+    stage.setTitle(title)
+    stage.setScene(scene)
+    stage.show
   }
 
   def resource(path: String): java.net.URL =
@@ -69,6 +70,7 @@ class MarkdownController extends InitializableController {
   final val WindowHeight = "windowHeight"
 
   lazy val _styleChoice = choiceBox[String]("styleChoice")
+  lazy val _previewView = webView("previewView")
 
   lazy val fileChooser = {
     val fileChooser = new FileChooser
@@ -105,7 +107,6 @@ class MarkdownController extends InitializableController {
 
   def init {
     // Window position.
-    stage.setResizable(false)
     val stageX = prefs.getDouble(WindowX, Double.NaN)
     val stageY = prefs.getDouble(WindowY, Double.NaN)
     if (stageX != Double.NaN     && stageY != Double.NaN) {
@@ -150,8 +151,10 @@ class MarkdownController extends InitializableController {
           val itr = list.iterator
           while (itr.hasNext) {
             try {
+              val inpFile = itr.next
               Markdown.generate(
-                stylesHome, _styleChoice.getValue, itr.next)
+                stylesHome, _styleChoice.getValue, inpFile)
+              preview(inpFile)
             } catch {
               case exp: java.io.IOException =>
             }
@@ -171,9 +174,18 @@ class MarkdownController extends InitializableController {
         try {
           Markdown.generate(
             stylesHome, _styleChoice.getValue, inpFile)
+          preview(inpFile)
         } catch {
-          case exp: java.io.IOException =>
+          case exp: Exception =>
+            exp.printStackTrace
         }
+    }
+
+  def preview(inpFile: java.io.File): Unit =
+    runLater {
+      val outpFile = FileUtils.createFile(inpFile.getPath, ".html")
+      val outpURL = outpFile.toURI.toURL
+      _previewView.getEngine.load(outpURL.toString)
     }
 }
 
@@ -198,4 +210,15 @@ abstract class InitializableController {
   protected def label(id: String): Label = lookup[Label](id)
   protected def textField(id: String): TextField = lookup[TextField](id)
   protected def choiceBox[T](id: String): ChoiceBox[T] = lookup[ChoiceBox[T]](id)
+  protected def webView(id: String): WebView = lookup[WebView](id)
+
+  class RunProc(p: => Unit) extends Runnable {
+    def run {
+      p
+    }
+  }
+
+  protected def runLater(p: => Unit) {
+    javafx.application.Platform.runLater(new RunProc(p))
+  }
 }

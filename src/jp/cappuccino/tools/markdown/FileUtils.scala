@@ -36,4 +36,7 @@ object FileUtils {
     fileName.replaceAll("\\.[^\\.]+$", "")
 
 
+  def createFile(fileName: String, ext: String): File =
+    new File(prefixFileName(fileName) + ext)
+
 }
