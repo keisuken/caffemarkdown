@@ -14,7 +14,7 @@
   <children>
     <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="640.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="431.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane id="" fx:id="mainTabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="431.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
           <tabs>
             <Tab text="Preview">
               <content>
@@ -31,17 +31,35 @@
       <top>
         <HBox prefHeight="-1.0" prefWidth="-1.0">
           <children>
-            <Button maxWidth="-1.0" mnemonicParsing="false" onAction="#handleFile" prefWidth="310.0" text="File">
+            <MenuBar prefWidth="307.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleFileOpen" text="Open" />
+                    <MenuItem mnemonicParsing="false" onAction="#handleFileExit" text="Exit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Settings">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleSettingsWkhtml2pdf" text="wkhtmltopdf" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleHelpAbout" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Label alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="110.0" text="Style:" textAlignment="RIGHT" textOverrun="ELLIPSIS">
               <font>
-                <Font size="18.0" fx:id="x1" />
+                <Font size="12.0" />
               </font>
-            </Button>
-            <Label alignment="CENTER_RIGHT" font="$x1" prefHeight="29.0" prefWidth="110.0" text="Style:" textAlignment="RIGHT" textOverrun="ELLIPSIS">
               <HBox.margin>
                 <Insets left="10.0" right="10.0" />
               </HBox.margin>
             </Label>
-            <ChoiceBox fx:id="styleChoice" prefHeight="29.0" prefWidth="178.0">
+            <ChoiceBox fx:id="styleChoice" prefHeight="22.0" prefWidth="178.0">
               <items>
                 <FXCollections fx:factory="observableArrayList">
                   <String fx:value="アイテム1" />

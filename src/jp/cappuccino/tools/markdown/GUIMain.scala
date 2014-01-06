@@ -1,24 +1,31 @@
 package jp.cappuccino.tools.markdown
 
+import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.event.EventType
 import javafx.fxml.FXMLLoader
 import javafx.scene.layout.Pane
 import javafx.stage.FileChooser
+import javafx.stage.Modality
 import javafx.stage.Stage
 import javafx.stage.WindowEvent
 import javafx.scene.Scene
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.Label
+import javafx.scene.control.Tab
+import javafx.scene.control.TabPane
 import javafx.scene.control.TextField
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.web.WebView
 
+
+
 import concurrent.future
 import concurrent.ExecutionContext.Implicits.global
+
 
 
 object GUIMain extends App {
@@ -41,7 +48,7 @@ class PaneApplication(
 
   @throws(classOf[Exception])
   override def start(stage: Stage) {
-    val fxmlLoader = new FXMLLoader(resource(fxmlPath))
+    val fxmlLoader = new FXMLLoader(ClassUtils.resource(fxmlPath))
     fxmlLoader.setController(controller)
     val pane = fxmlLoader.load.asInstanceOf[Pane]
     controller.init(stage, pane)
@@ -50,12 +57,6 @@ class PaneApplication(
     stage.setScene(scene)
     stage.show
   }
-
-  def resource(path: String): java.net.URL =
-    getClass.getResource(path) match {
-      case null => getClass.getClassLoader.getResource(path)
-      case res => res
-    }
 }
 
 
@@ -68,9 +69,16 @@ class MarkdownController extends InitializableController {
   final val WindowY = "windowY"
   final val WindowWidth = "windoWidth"
   final val WindowHeight = "windowHeight"
+  final val WkHtml2Pdf = "wkhtmltopdf"
+  final val AboutFXML = "jp/cappuccino/tools/markdown/about.fxml"
 
   lazy val _styleChoice = choiceBox[String]("styleChoice")
   lazy val _previewView = webView("previewView")
+
+
+
+//  lazy val _tabPane = tabPane("mainTabPane")
+//  lazy val _aboutTab = tab("aboutTab")
 
   lazy val fileChooser = {
     val fileChooser = new FileChooser
@@ -78,7 +86,17 @@ class MarkdownController extends InitializableController {
     val filters = fileChooser.getExtensionFilters
     filters.setAll(
       new FileChooser.ExtensionFilter("Markdown", "*.md"),
-      new FileChooser.ExtensionFilter("All", "*.*"))
+      new FileChooser.ExtensionFilter("All", "*"))
+    fileChooser
+  }
+
+  lazy val wkhtml2pdfFileChooser = {
+    val fileChooser = new FileChooser
+    fileChooser.setTitle("Choose wkhtmltopdf execution file")
+    val filters = fileChooser.getExtensionFilters
+    filters.setAll(
+      new FileChooser.ExtensionFilter("wkhtmltopdf", "wkhtmltopdf*"),
+      new FileChooser.ExtensionFilter("All", "*"))
     fileChooser
   }
 
@@ -109,9 +127,15 @@ class MarkdownController extends InitializableController {
     // Window position.
     val stageX = prefs.getDouble(WindowX, Double.NaN)
     val stageY = prefs.getDouble(WindowY, Double.NaN)
-    if (stageX != Double.NaN     && stageY != Double.NaN) {
+    val stageWidth = prefs.getDouble(WindowWidth, Double.NaN)
+    val stageHeight = prefs.getDouble(WindowHeight, Double.NaN)
+    if (stageX != Double.NaN && stageY != Double.NaN) {
       stage.setX(stageX)
       stage.setY(stageY)
+    }
+    if (stageWidth != Double.NaN && stageHeight != Double.NaN) {
+      stage.setWidth(stageWidth)
+      stage.setHeight(stageHeight)
     }
     // ChoiceBox styles.
     val styleNames = Style.names(stylesHome.getPath)
@@ -126,6 +150,8 @@ class MarkdownController extends InitializableController {
             case WindowEvent.WINDOW_CLOSE_REQUEST =>
               prefs.putDouble(WindowX, stage.getX)
               prefs.putDouble(WindowY, stage.getY)
+              prefs.putDouble(WindowWidth, stage.getWidth)
+              prefs.putDouble(WindowHeight, stage.getHeight)
             case _ =>
           }
         }
@@ -151,10 +177,7 @@ class MarkdownController extends InitializableController {
           val itr = list.iterator
           while (itr.hasNext) {
             try {
-              val inpFile = itr.next
-              Markdown.generate(
-                stylesHome, _styleChoice.getValue, inpFile)
-              preview(inpFile)
+              generateMarkdown(itr.next)
             } catch {
               case exp: java.io.IOException =>
             }
@@ -167,29 +190,86 @@ class MarkdownController extends InitializableController {
     event.consume
   }
 
-  def handleFile(event: ActionEvent): Unit =
+  def handleFileOpen(event: ActionEvent): Unit =
     future {
       val inpFile = fileOpen
       if (inpFile != null)
         try {
-          Markdown.generate(
-            stylesHome, _styleChoice.getValue, inpFile)
-          preview(inpFile)
+          generateMarkdown(inpFile)
         } catch {
           case exp: Exception =>
             exp.printStackTrace
         }
     }
 
-  def preview(inpFile: java.io.File): Unit =
+  def handleFileExit(event: ActionEvent): Unit = {
+    Platform.exit
+  }
+
+  def handleSettingsWkhtml2pdf(event: ActionEvent): Unit = {
+    val inpFile = wkhtml2pdfFileChooser.showOpenDialog(stage)
+    if (inpFile != null)
+      prefs.put(WkHtml2Pdf, inpFile.getPath)
+  }
+
+  lazy val helpDialog = {
+    val fxmlLoader = new FXMLLoader(ClassUtils.resource(AboutFXML))
+    fxmlLoader.setController(this)
+    val pane = fxmlLoader.load.asInstanceOf[Pane]
+    val scene = new Scene(pane)
+    val dialog = new Stage
+    dialog.initOwner(stage)
+    dialog.initModality(Modality.WINDOW_MODAL)
+    dialog.setTitle("About")
+    dialog.setScene(scene)
+    dialog
+  }
+
+
+  def handleHelpAbout(event: ActionEvent) {
+    helpDialog.showAndWait()
+  }
+
+  def handleHelpAboutClose(event: ActionEvent) {
+    helpDialog.close
+  }
+
+
+  private def generateMarkdown(inpFile: java.io.File) {
+    Markdown.generate(stylesHome, _styleChoice.getValue, inpFile)
+    preview(inpFile)
+    generatePdf(inpFile)
+  }
+
+  private def preview(inpFile: java.io.File): Unit =
     runLater {
       val outpFile = FileUtils.createFile(inpFile.getPath, ".html")
       val outpURL = outpFile.toURI.toURL
       _previewView.getEngine.load(outpURL.toString)
     }
+
+  private def generatePdf(inpFile: java.io.File) {
+    val wkhtml2pdfExe = prefs.get(WkHtml2Pdf, null)
+    if (wkhtml2pdfExe != null) {
+      future {
+        val htmlFile = FileUtils.createFile(inpFile.getPath, ".html")
+        val pdfFile = FileUtils.createFile(inpFile.getPath, ".pdf")
+        val proc = new ProcessBuilder(
+          wkhtml2pdfExe, htmlFile.getPath, pdfFile.getPath)
+        proc.inheritIO
+        proc.start
+      }
+    }
+  }
 }
 
 abstract class InitializableController {
+
+  class RunProc(p: => Unit) extends Runnable {
+    def run {
+      p
+    }
+  }
 
   private var _pane: Pane = _
   private var _stage: Stage = _
@@ -209,16 +289,13 @@ abstract class InitializableController {
     pane.lookup("#" + id).asInstanceOf[T]
   protected def label(id: String): Label = lookup[Label](id)
   protected def textField(id: String): TextField = lookup[TextField](id)
-  protected def choiceBox[T](id: String): ChoiceBox[T] = lookup[ChoiceBox[T]](id)
+  protected def choiceBox[T](id: String): ChoiceBox[T] =
+    lookup[ChoiceBox[T]](id)
   protected def webView(id: String): WebView = lookup[WebView](id)
-
-  class RunProc(p: => Unit) extends Runnable {
-    def run {
-      p
-    }
-  }
+  protected def tabPane(id: String): TabPane = lookup[TabPane](id)
+  protected def tab(id: String): Tab = lookup[Tab](id)
 
   protected def runLater(p: => Unit) {
-    javafx.application.Platform.runLater(new RunProc(p))
+    Platform.runLater(new RunProc(p))
   }
 }
