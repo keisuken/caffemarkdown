@@ -88,6 +88,12 @@ println(hrml)
 
 
 
+## Screenshot
+
+![Caffe Markdown: GUI](docs/images/CaffeMarkdown-GUI.png "Caffe Markdown: GUI")
+
+
+
 ## API Reference
 
 [Caffè Markdown](docs/api/index.html) を見てください。
