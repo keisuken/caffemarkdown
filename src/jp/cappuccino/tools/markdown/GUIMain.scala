@@ -2,30 +2,29 @@ package jp.cappuccino.tools.markdown
 
 import javafx.application.Platform
 import javafx.event.ActionEvent
-import javafx.event.EventHandler
-import javafx.event.EventType
-import javafx.fxml.FXMLLoader
-import javafx.scene.layout.Pane
-import javafx.stage.FileChooser
-import javafx.stage.Modality
-import javafx.stage.Stage
-import javafx.stage.WindowEvent
 import javafx.scene.Scene
 import javafx.scene.control.ChoiceBox
-import javafx.scene.control.Label
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
-import javafx.scene.control.TextField
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.layout.Pane
 import javafx.scene.input.TransferMode;
-import javafx.scene.web.WebView
-
-
+import javafx.stage.FileChooser
+import javafx.stage.Stage
+import javafx.stage.Modality
+import javafx.stage.WindowEvent
 
 import concurrent.future
 import concurrent.ExecutionContext.Implicits.global
 
+import jfx.EventProc
+import jfx.FXMLUtils
+import jfx.InitializableController
+import jfx.PaneApplication
+
+import util.ClassUtils
+import util.FileUtils
 
 
 object GUIMain extends App {
@@ -35,50 +34,34 @@ object GUIMain extends App {
 
 class MarkdownApplication extends PaneApplication(
   "Caffè Markdown",
-  "jp/cappuccino/tools/markdown/markdown.fxml",
+  "jp/cappuccino/tools/markdown/res/markdown.fxml",
   new MarkdownController
 )
 
 
-class PaneApplication(
-  title: String,
-  fxmlPath: String,
-  controller: InitializableController
-) extends javafx.application.Application {
 
-  @throws(classOf[Exception])
-  override def start(stage: Stage) {
-    val fxmlLoader = new FXMLLoader(ClassUtils.resource(fxmlPath))
-    fxmlLoader.setController(controller)
-    val pane = fxmlLoader.load.asInstanceOf[Pane]
-    controller.init(stage, pane)
-    val scene = new Scene(pane)
-    stage.setTitle(title)
-    stage.setScene(scene)
-    stage.show
-  }
-}
 
 
 class MarkdownController extends InitializableController {
 
   import Main.stylesHome
 
+  // FXML resouce name.
+  final val AboutFXML = "jp/cappuccino/tools/markdown/res/about.fxml"
+
+  // Preference names.
   final val CurrentDir = "currentDir"
   final val WindowX = "windowX"
   final val WindowY = "windowY"
   final val WindowWidth = "windoWidth"
   final val WindowHeight = "windowHeight"
+  final val StyleName = "styleName"
   final val WkHtml2Pdf = "wkhtmltopdf"
-  final val AboutFXML = "jp/cappuccino/tools/markdown/about.fxml"
 
+  // GUI 
   lazy val _styleChoice = choiceBox[String]("styleChoice")
   lazy val _previewView = webView("previewView")
 
-
-
-//  lazy val _tabPane = tabPane("mainTabPane")
-//  lazy val _aboutTab = tab("aboutTab")
 
   lazy val fileChooser = {
     val fileChooser = new FileChooser
@@ -98,6 +81,19 @@ class MarkdownController extends InitializableController {
       new FileChooser.ExtensionFilter("wkhtmltopdf", "wkhtmltopdf*"),
       new FileChooser.ExtensionFilter("All", "*"))
     fileChooser
+  }
+
+  lazy val helpDialog = {
+    val pane = FXMLUtils.load[Pane](AboutFXML, this)
+    val scene = new Scene(pane)
+    val dialog = new Stage
+    dialog.initOwner(stage)
+    dialog.initModality(Modality.WINDOW_MODAL)
+    dialog.setScene(scene)
+    dialog.setTitle("About")
+    dialog.setIconified(false)
+    dialog.setResizable(false)
+    dialog
   }
 
   def fileOpen: java.io.File = {
@@ -140,20 +136,25 @@ class MarkdownController extends InitializableController {
     // ChoiceBox styles.
     val styleNames = Style.names(stylesHome.getPath)
     _styleChoice.getItems.setAll(styleNames.toArray: _*)
-    _styleChoice.setValue(Style.Default)
+    val styleName = prefs.get(StyleName, "")
+    if (styleName != "")
+      _styleChoice.setValue(styleName)
+    else
+      _styleChoice.setValue(Style.Default)
     // Close event.
     stage.addEventHandler(
       WindowEvent.WINDOW_CLOSE_REQUEST,
-      new EventHandler[WindowEvent]() {
-        def handle(event: WindowEvent) {
-          event.getEventType match {
-            case WindowEvent.WINDOW_CLOSE_REQUEST =>
-              prefs.putDouble(WindowX, stage.getX)
-              prefs.putDouble(WindowY, stage.getY)
-              prefs.putDouble(WindowWidth, stage.getWidth)
-              prefs.putDouble(WindowHeight, stage.getHeight)
-            case _ =>
-          }
+      EventProc[WindowEvent] {event =>
+        event.getEventType match {
+          case WindowEvent.WINDOW_CLOSE_REQUEST =>
+            // Save window position.
+            prefs.putDouble(WindowX, stage.getX)
+            prefs.putDouble(WindowY, stage.getY)
+            prefs.putDouble(WindowWidth, stage.getWidth)
+            prefs.putDouble(WindowHeight, stage.getHeight)
+            // Save style name.
+            prefs.put(StyleName, _styleChoice.getValue)
+          case _ =>
         }
       }
     )
@@ -212,20 +213,6 @@ class MarkdownController extends InitializableController {
       prefs.put(WkHtml2Pdf, inpFile.getPath)
   }
 
-  lazy val helpDialog = {
-    val fxmlLoader = new FXMLLoader(ClassUtils.resource(AboutFXML))
-    fxmlLoader.setController(this)
-    val pane = fxmlLoader.load.asInstanceOf[Pane]
-    val scene = new Scene(pane)
-    val dialog = new Stage
-    dialog.initOwner(stage)
-    dialog.initModality(Modality.WINDOW_MODAL)
-    dialog.setTitle("About")
-    dialog.setScene(scene)
-    dialog
-  }
-
-
   def handleHelpAbout(event: ActionEvent) {
     helpDialog.showAndWait()
   }
@@ -260,42 +247,5 @@ class MarkdownController extends InitializableController {
         proc.start
       }
     }
-  }
-}
-
-abstract class InitializableController {
-
-  class RunProc(p: => Unit) extends Runnable {
-    def run {
-      p
-    }
-  }
-
-  private var _pane: Pane = _
-  private var _stage: Stage = _
-
-  def init(stage: Stage, pane: Pane) {
-    _stage = stage
-    _pane = pane
-    init
-  }
-
-  def init: Unit
-
-  protected def stage: Stage = _stage
-  protected def pane: Pane = _pane
-
-  protected def lookup[T](id: String): T =
-    pane.lookup("#" + id).asInstanceOf[T]
-  protected def label(id: String): Label = lookup[Label](id)
-  protected def textField(id: String): TextField = lookup[TextField](id)
-  protected def choiceBox[T](id: String): ChoiceBox[T] =
-    lookup[ChoiceBox[T]](id)
-  protected def webView(id: String): WebView = lookup[WebView](id)
-  protected def tabPane(id: String): TabPane = lookup[TabPane](id)
-  protected def tab(id: String): Tab = lookup[Tab](id)
-
-  protected def runLater(p: => Unit) {
-    Platform.runLater(new RunProc(p))
   }
 }

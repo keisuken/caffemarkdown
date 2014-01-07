@@ -2,7 +2,7 @@ package jp.cappuccino.tools.markdown
 
 import java.io.File
 
-import FileUtils.{load => fLoad}
+import util.FileUtils.{load => fLoad}
 
 /**
  * Style utility.

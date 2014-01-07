@@ -6,7 +6,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import javax.script._
 
-import FileUtils._
+import util.FileUtils._
 
 
 /**
@@ -16,7 +16,7 @@ object Markdown {
 
   /** Resource path of marked source file. */
   private final val MarkedSourcePath =
-    "jp/cappuccino/tools/markdown/marked.js"
+    "jp/cappuccino/tools/markdown/res/marked.js"
 
   /** ClassLoader for this library. */
   private val classLoader = getClass.getClassLoader match {
