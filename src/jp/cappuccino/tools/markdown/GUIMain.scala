@@ -26,6 +26,18 @@ import jfx.PaneApplication
 import util.ClassUtils
 import util.FileUtils
 
+import jp.cappuccino.tools.wkhtml2pdf.WKHTML2PDF
+
+
+
+
+import javafx.collections.ObservableList
+import javafx.scene.control.Menu
+import javafx.scene.control.MenuItem
+import javafx.scene.control.RadioMenuItem
+
+
+
 
 object GUIMain extends App {
   javafx.application.Application.launch(classOf[MarkdownApplication], args: _*)
@@ -37,9 +49,6 @@ class MarkdownApplication extends PaneApplication(
   "jp/cappuccino/tools/markdown/res/markdown.fxml",
   new MarkdownController
 )
-
-
-
 
 
 class MarkdownController extends InitializableController {
@@ -55,13 +64,38 @@ class MarkdownController extends InitializableController {
   final val WindowY = "windowY"
   final val WindowWidth = "windoWidth"
   final val WindowHeight = "windowHeight"
+  final val OutputPDF = "outputPDF"
   final val StyleName = "styleName"
   final val WkHtml2Pdf = "wkhtmltopdf"
 
   // GUI 
   lazy val _styleChoice = choiceBox[String]("styleChoice")
   lazy val _previewView = webView("previewView")
+  lazy val _mainMenu = menuBar("mainMenu")
+  lazy val _settingsMenu = find(_mainMenu.getMenus, "settingsMenu")
+  lazy val _outputPDFRadio =
+    find(_settingsMenu.getItems, "outputToPDFRadio").
+    asInstanceOf[RadioMenuItem]
 
+  def find(list: ObservableList[MenuItem], id: String): MenuItem = {
+    val itr = list.iterator
+    while (itr.hasNext) {
+      val item = itr.next
+      if (item.getId == id)
+        return item
+    }
+    null
+  }
+
+  def find(list: ObservableList[Menu], id: String): Menu = {
+    val itr = list.iterator
+    while (itr.hasNext) {
+      val item = itr.next
+      if (item.getId == id)
+        return item
+    }
+    null
+  }
 
   lazy val fileChooser = {
     val fileChooser = new FileChooser
@@ -133,6 +167,8 @@ class MarkdownController extends InitializableController {
       stage.setWidth(stageWidth)
       stage.setHeight(stageHeight)
     }
+    // Output to PDF?
+    _outputPDFRadio.setSelected(prefs.getBoolean(OutputPDF, false))
     // ChoiceBox styles.
     val styleNames = Style.names(stylesHome.getPath)
     _styleChoice.getItems.setAll(styleNames.toArray: _*)
@@ -152,6 +188,8 @@ class MarkdownController extends InitializableController {
             prefs.putDouble(WindowY, stage.getY)
             prefs.putDouble(WindowWidth, stage.getWidth)
             prefs.putDouble(WindowHeight, stage.getHeight)
+            // Output to PDF.
+            prefs.putBoolean(OutputPDF, _outputPDFRadio.isSelected)
             // Save style name.
             prefs.put(StyleName, _styleChoice.getValue)
           case _ =>
@@ -237,14 +275,12 @@ class MarkdownController extends InitializableController {
 
   private def generatePdf(inpFile: java.io.File) {
     val wkhtml2pdfExe = prefs.get(WkHtml2Pdf, null)
-    if (wkhtml2pdfExe != null) {
+    if (wkhtml2pdfExe != null && _outputPDFRadio.isSelected) {
       future {
         val htmlFile = FileUtils.createFile(inpFile.getPath, ".html")
         val pdfFile = FileUtils.createFile(inpFile.getPath, ".pdf")
-        val proc = new ProcessBuilder(
-          wkhtml2pdfExe, htmlFile.getPath, pdfFile.getPath)
-        proc.inheritIO
-        proc.start
+        val wkhtml2pdf = new WKHTML2PDF(wkhtml2pdfExe)
+        wkhtml2pdf.generate(htmlFile, pdfFile)
       }
     }
   }

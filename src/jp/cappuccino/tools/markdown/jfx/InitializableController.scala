@@ -4,6 +4,9 @@ import javafx.application.Platform
 import javafx.scene.layout.Pane
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.Label
+import javafx.scene.control.MenuBar
+import javafx.scene.control.MenuItem
+import javafx.scene.control.RadioMenuItem
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import javafx.scene.control.TextField
@@ -40,8 +43,12 @@ abstract class InitializableController {
   protected def choiceBox[T](id: String): ChoiceBox[T] =
     lookup[ChoiceBox[T]](id)
   protected def webView(id: String): WebView = lookup[WebView](id)
+  protected def menuBar(id: String): MenuBar = lookup[MenuBar](id)
+
   protected def tabPane(id: String): TabPane = lookup[TabPane](id)
   protected def tab(id: String): Tab = lookup[Tab](id)
+  protected def radioMenuItem(id: String): RadioMenuItem =
+    lookup[RadioMenuItem](id)
 
   protected def runLater(p: => Unit) {
     Platform.runLater(new RunProc(p))

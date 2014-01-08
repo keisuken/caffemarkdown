@@ -42,18 +42,6 @@ object Markdown {
   private val engineManager = new ScriptEngineManager(classLoader)
 
   /**
-   * Create marked script engine.
-   * @return  script engine.
-   */
-  def createMarked: ScriptEngine = {
-    val engine = engineManager.getEngineByExtension("js")
-    val source = MarkdownSource + "\nmarked"
-    val marked = engine.eval(source)
-    engine.put("marked", marked)
-    engine
-  }
-
-  /**
    * Generate.
    * @param  home  style home directory.
    * @param  styleName  style name.
@@ -68,6 +56,28 @@ object Markdown {
     val outpFile = new File(inpFile.getParent, htmlFileName(inpFile.getName))
     val html = markdown.generate(source, style, title)
     save(html, outpFile)
+  }
+
+  /**
+   * Generate.
+   * @param  home  style home directory.
+   * @param  styleName  style name.
+   * @param  inpFile  source file name.
+   * @return  generated HTML.
+   */
+  def generate(home: String, styleName: String, inpFile: String): Unit =
+    generate(new File(home), styleName, new File(inpFile))
+
+  /**
+   * Create marked script engine.
+   * @return  script engine.
+   */
+  protected def createMarked: ScriptEngine = {
+    val engine = engineManager.getEngineByExtension("js")
+    val source = MarkdownSource + "\nmarked"
+    val marked = engine.eval(source)
+    engine.put("marked", marked)
+    engine
   }
 
   private def htmlFileName(fileName: String) =

@@ -9,6 +9,9 @@ JavaおよびScala用のMarkdown変換ツールです。
 内部で[marked](https://github.com/chjj/marked)を使っています。
 
 
+![Caffe Markdown: GUI](docs/images/CaffeMarkdown-GUI-s.png "Caffe Markdown: GUI")
+
+
 
 ## 導入
 
@@ -85,12 +88,6 @@ val html = Markdown.generate(home, styleName, inpFile)
 // Print HTML.
 println(hrml)
 ```
-
-
-
-## Screenshot
-
-![Caffe Markdown: GUI](docs/images/CaffeMarkdown-GUI.png "Caffe Markdown: GUI")
 
 
 

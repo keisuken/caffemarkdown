@@ -9,6 +9,10 @@ Markdown generate tool for Java and Scala.
 [marked](https://github.com/chjj/marked) is used for conversion of a markdown file.
 
 
+![Caffe Markdown: GUI](docs/images/CaffeMarkdown-GUI-s.png "Caffe Markdown: GUI")
+
+
+
 ## Install
 
 ```
@@ -83,12 +87,6 @@ val html = Markdown.generate(home, styleName, inpFile)
 // Print HTML.
 println(hrml)
 ```
-
-
-
-## Screenshot
-
-![Caffe Markdown: GUI](docs/images/CaffeMarkdown-GUI.png "Caffe Markdown: GUI")
 
 
 

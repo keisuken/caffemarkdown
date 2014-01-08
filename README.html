@@ -12,8 +12,9 @@ body {
 h1 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  color: white;
-  background-color: black;
+  border-bottom: solid 2px #c0c0c0;
+  color: black;
+  background-color: #e8e8e8;
   font-family: SanSerif;
   font-weight: normal;
   text-shadow: none;
@@ -22,9 +23,10 @@ h1 {
 h2 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
+  border-bottom: solid 2px #c0c0c0;
   font-size: 140%;
-  color: white;
-  background-color: black;
+  color: #202020;
+  background-color: #f0f0f0;
   font-family: SanSerif;
   font-weight: normal;
   text-shadow: none;
@@ -33,9 +35,10 @@ h2 {
 h3 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
+  border-bottom: solid 1px #c0c0c0;
   font-size: 130%;
-  color: white;
-  background-color: black;
+  color: #202020;
+  background-color: #f8f8f8;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
@@ -45,7 +48,7 @@ h3 {
 h4 {
   margin: 0 0 1em 0;
   font-size: 120%;
-  border-bottom: solid 3px black;
+  border-bottom: solid 3px #c0c0c0;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
@@ -55,7 +58,7 @@ h4 {
 h5 {
   margin: 0 0 1em 0;
   font-size: 100%;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px #c0c0c0;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
@@ -81,10 +84,10 @@ pre {
   margin: 1em 1em 1em 1em;
   padding: 1em;
   border-radius: 0.5em;
-  border: solid 1px black;
+  border: solid 1px #c0c0c0;
   font-size: 100%;
   color: #101010;
-  background-color: white:
+  background-color: #f0f0f0;
 }
 
 a {
@@ -98,25 +101,29 @@ a:visited {
 blockquote {
   margin: 1em 1em 1em 1em;
   padding: 0.2em;
-  background-color: white;
-  border: black solid;
+  background-color: #f0f0f0;
+  border: #808080 solid;
   border-width: 0 0 0 4px;
   text-decoration: none;
 }
 
 table {
   margin: 1em 1em 1em 1em;
-  border: 1px black solid;
+  border: 1px #c0c0c0 solid;
   border-collapse: collapse;
   border-spacing: 0;
+  background-color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f8f8;
 }
 
 th {
   padding: 0.2em;
-  border: black solid;
+  border: #c0c0c0 solid;
   border-width: 0 0 1px 1px;
-  color: white;
-  background-color: black;
+  background-color: #f0f0f0;
   font-family: SansSerif;
   font-weight: normal;
   text-align: center;
@@ -124,10 +131,9 @@ th {
 
 td {
   padding: 0.2em;
-  border: black solid;
+  border: #c0c0c0 solid;
   border-width: 0 0 1px 1px;
   font-family: Serif;
-  backgrounc-color: white;
 }
 
 caption {
@@ -138,7 +144,7 @@ caption {
 
 hr {
   margin: 1em 0 1em 0;
-  border: solid 2px black;
+  border: solid 2px #c0c0c0;
 }
 
 li {
@@ -151,6 +157,7 @@ li {
 <h1 id="caffè-markdown">Caffè Markdown</h1>
 <p>Markdown generate tool for Java and Scala.</p>
 <p><a href="https://github.com/chjj/marked">marked</a> is used for conversion of a markdown file.</p>
+<p><img src="docs/images/CaffeMarkdown-GUI-s.png" alt="Caffe Markdown: GUI" title="Caffe Markdown: GUI"></p>
 <h2 id="install">Install</h2>
 <pre><code>$ git clone git://github.com/keisuken/caffemarkdown.git
 </code></pre><ul>
@@ -193,9 +200,7 @@ val html = Markdown.generate(home, styleName, inpFile)
 
 // Print HTML.
 println(hrml)
-</code></pre><h2 id="screenshot">Screenshot</h2>
-<p><img src="docs/images/CaffeMarkdown-GUI.png" alt="Caffe Markdown: GUI" title="Caffe Markdown: GUI"></p>
-<h2 id="api-reference">API Reference</h2>
+</code></pre><h2 id="api-reference">API Reference</h2>
 <p>See <a href="docs/api/index.html">Caffè Markdown</a> .</p>
 <h2 id="license">License</h2>
 <p>Copyright (C) 2014, NISHIMOTO Keisuke. (MIT License)</p>
