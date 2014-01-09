@@ -5,6 +5,7 @@
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -25,6 +26,26 @@
                 </AnchorPane>
               </content>
             </Tab>
+            <Tab text="Log">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                    <BorderPane prefHeight="400.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <center>
+                        <TextArea fx:id="logArea" editable="false" focusTraversable="false" prefHeight="400.0" prefWidth="640.0" wrapText="true" />
+                      </center>
+                      <top>
+                        <Button mnemonicParsing="false" onAction="#handleClearLog" text="Clear" BorderPane.alignment="CENTER">
+                          <BorderPane.margin>
+                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                          </BorderPane.margin>
+                        </Button>
+                      </top>
+                    </BorderPane>
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
           </tabs>
         </TabPane>
       </center>
@@ -35,8 +56,16 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#handleFileOpen" text="Open and generate" />
-                    <MenuItem mnemonicParsing="false" onAction="#handleFileExit" text="Exit" />
+                    <MenuItem mnemonicParsing="false" onAction="#handleFileOpen" text="Open and generate">
+                      <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                    </MenuItem>
+                    <MenuItem mnemonicParsing="false" onAction="#handleFileExit" text="Exit">
+                      <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                    </MenuItem>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Settings" fx:id="settingsMenu">

@@ -9,6 +9,7 @@ import javafx.scene.control.MenuItem
 import javafx.scene.control.RadioMenuItem
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
+import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
 import javafx.scene.web.WebView
 import javafx.stage.Stage
@@ -40,6 +41,7 @@ abstract class InitializableController {
     pane.lookup("#" + id).asInstanceOf[T]
   protected def label(id: String): Label = lookup[Label](id)
   protected def textField(id: String): TextField = lookup[TextField](id)
+  protected def textArea(id: String): TextArea = lookup[TextArea](id)
   protected def choiceBox[T](id: String): ChoiceBox[T] =
     lookup[ChoiceBox[T]](id)
   protected def webView(id: String): WebView = lookup[WebView](id)

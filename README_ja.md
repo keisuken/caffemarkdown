@@ -55,6 +55,23 @@ caffemd default example.md
 caffemdgui.bat or caffemdgui.shをクリックして起動してください
 
 
+#### 設定
+
+##### wkhtmltopdfの選択
+
+1.メニューバーの "Settings" - "select wkhtmltopdf" を実行
+2.wkhtmltopdf(HTML to PDFコンバータ)実行ファイルを選択
+
+##### PDF出力
+
+もしPDFを出力したい場合は、"output to PDF" メニューアイテムをチェックしてください。
+
+
+#### Markdownファイルのオープンと変換
+
+メニューバーの "File" - "Open and generate" メニューアイテムを実行。
+
+
 
 ### Scala
 

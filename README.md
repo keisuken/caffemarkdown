@@ -54,6 +54,23 @@ caffemd default example.md
 Click for caffemdgui.bat or caffemdgui.sh .
 
 
+#### Settings
+
+##### Select wkhtmltopdf
+
+1.Execution menu bar's "Settings" - "select wkhtmltopdf"
+2.Select wkhtmltopdf(HTML to PDF converter) execution file
+
+##### output to PDF
+
+If otuput to PDF then check "output to PDF" menu item.
+
+
+#### Open and generatet Markdown file
+
+Execution menu bar' "File" - "Open and generate" menu item.
+
+
 
 ### Scala
 

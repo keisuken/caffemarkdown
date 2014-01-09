@@ -76,6 +76,10 @@ class MarkdownController extends InitializableController {
   lazy val _outputPDFRadio =
     find(_settingsMenu.getItems, "outputToPDFRadio").
     asInstanceOf[RadioMenuItem]
+  lazy val _logArea = {
+    val log = textArea("logArea")
+    log
+  }
 
   def find(list: ObservableList[MenuItem], id: String): MenuItem = {
     val itr = list.iterator
@@ -154,6 +158,7 @@ class MarkdownController extends InitializableController {
   def prefs = java.util.prefs.Preferences.userNodeForPackage(getClass)
 
   def init {
+println("tab pane: " + pane.lookup("#mainTabPane"))
     // Window position.
     val stageX = prefs.getDouble(WindowX, Double.NaN)
     val stageY = prefs.getDouble(WindowY, Double.NaN)
@@ -251,6 +256,10 @@ class MarkdownController extends InitializableController {
       prefs.put(WkHtml2Pdf, inpFile.getPath)
   }
 
+  def handleClearLog(event: ActionEvent): Unit = {
+    _logArea.clear
+  }
+
   def handleHelpAbout(event: ActionEvent) {
     helpDialog.showAndWait()
   }
@@ -259,9 +268,14 @@ class MarkdownController extends InitializableController {
     helpDialog.close
   }
 
-
   private def generateMarkdown(inpFile: java.io.File) {
-    Markdown.generate(stylesHome, _styleChoice.getValue, inpFile)
+    try {
+      Markdown.generate(stylesHome, _styleChoice.getValue, inpFile)
+      log("Success Markdown file")
+    } catch {
+      case t: Throwable =>
+        log("Failed generate Markdown file", t)
+    }
     preview(inpFile)
     generatePdf(inpFile)
   }
@@ -269,8 +283,14 @@ class MarkdownController extends InitializableController {
   private def preview(inpFile: java.io.File): Unit =
     runLater {
       val outpFile = FileUtils.createFile(inpFile.getPath, ".html")
-      val outpURL = outpFile.toURI.toURL
-      _previewView.getEngine.load(outpURL.toString)
+      try {
+        val outpURL = outpFile.toURI.toURL
+        _previewView.getEngine.load(outpURL.toString)
+        log("Success preview")
+      } catch {
+        case t: Throwable =>
+          log("Failed preview", t)
+      }
     }
 
   private def generatePdf(inpFile: java.io.File) {
@@ -279,9 +299,35 @@ class MarkdownController extends InitializableController {
       future {
         val htmlFile = FileUtils.createFile(inpFile.getPath, ".html")
         val pdfFile = FileUtils.createFile(inpFile.getPath, ".pdf")
-        val wkhtml2pdf = new WKHTML2PDF(wkhtml2pdfExe)
-        wkhtml2pdf.generate(htmlFile, pdfFile)
+        try {
+          val wkhtml2pdf = new WKHTML2PDF(wkhtml2pdfExe)
+//          val baos = new java.io.ByteArrayOutputStream
+          wkhtml2pdf.generate(
+            htmlFile, pdfFile,
+//            {(b: Array[Byte], l: Int) => baos.write(b, 0, l)}
+            {(b: Array[Byte], l: Int) =>}
+          )
+//          log(new String(baos.toByteArray))
+          log("Success generate PDF file")
+        } catch {
+          case t: Throwable =>
+            log("Failed generate PDF", t)
+        }
       }
     }
   }
+
+  private def log(msg: String): Unit =
+    runLater {
+      _logArea.appendText(msg)
+      _logArea.appendText("\n")
+    }
+
+  private def log(msg: String, t: Throwable): Unit =
+    runLater {
+      _logArea.appendText(msg)
+      _logArea.appendText(": Exception: ")
+      _logArea.appendText(t.getMessage)
+      _logArea.appendText("\n")
+    }
 }
