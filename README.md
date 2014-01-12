@@ -32,21 +32,33 @@ $ git clone git://github.com/keisuken/caffemarkdown.git
 Windows:
 
 ```
-caffemd [style_name] input
+caffemd [options] files...
 ```
 
 Mac or Linux:
 
 ```
-caffemd.sh [style_name] input
+caffemd.sh [options] files...
 ```
 
 ex: (Windows)
 
 ```
-caffemd default example.md
+caffemd -style default example.md
 ```
 
+#### Usage
+
+```
+Usage: caffemd [options] file...
+Options:
+  -help               Display this information
+  -version            Display version information
+  -style <style_name> Set output style
+  -wkhtmltopdf <wkhtmltopdf_path>
+                      Set wkhtmltopdf execution path
+  -pdf                Output PDF file
+```
 
 
 ### GUI(Java FX)

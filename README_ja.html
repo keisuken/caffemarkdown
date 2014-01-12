@@ -12,57 +12,41 @@ body {
 h1 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  border-bottom: solid 2px #c0c0c0;
-  color: black;
-  background-color: #e8e8e8;
   font-family: SanSerif;
   font-weight: normal;
-  text-shadow: none;
 }
 
 h2 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  border-bottom: solid 2px #c0c0c0;
   font-size: 140%;
-  color: #202020;
-  background-color: #f0f0f0;
   font-family: SanSerif;
   font-weight: normal;
-  text-shadow: none;
 }
 
 h3 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  border-bottom: solid 1px #c0c0c0;
   font-size: 130%;
-  color: #202020;
-  background-color: #f8f8f8;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
-  text-shadow: none;
 }
 
 h4 {
   margin: 0 0 1em 0;
   font-size: 120%;
-  border-bottom: solid 3px #c0c0c0;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
-  text-shadow: none;
 }
 
 h5 {
   margin: 0 0 1em 0;
   font-size: 100%;
-  border-bottom: solid 1px #c0c0c0;
   font-family: SanSerif;
   font-decoration: underline;
   font-weight: normal;
-  text-shadow: none;
 }
 
 h6 {
@@ -70,8 +54,6 @@ h6 {
   font-size: 100%;
   font-weight: normal;
   font-family: SanSerif;
-  font-decoration: underline;
-  text-shadow: none;
 }
 
 p {
@@ -83,11 +65,7 @@ p {
 pre {
   margin: 1em 1em 1em 1em;
   padding: 1em;
-  border-radius: 0.5em;
-  border: solid 1px #c0c0c0;
   font-size: 100%;
-  color: #101010;
-  background-color: #f0f0f0;
 }
 
 a {
@@ -101,29 +79,14 @@ a:visited {
 blockquote {
   margin: 1em 1em 1em 1em;
   padding: 0.2em;
-  background-color: #f0f0f0;
-  border: #808080 solid;
-  border-width: 0 0 0 4px;
-  text-decoration: none;
 }
 
 table {
   margin: 1em 1em 1em 1em;
-  border: 1px #c0c0c0 solid;
-  border-collapse: collapse;
-  border-spacing: 0;
-  background-color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #f8f8f8;
 }
 
 th {
   padding: 0.2em;
-  border: #c0c0c0 solid;
-  border-width: 0 0 1px 1px;
-  background-color: #f0f0f0;
   font-family: SansSerif;
   font-weight: normal;
   text-align: center;
@@ -131,9 +94,8 @@ th {
 
 td {
   padding: 0.2em;
-  border: #c0c0c0 solid;
-  border-width: 0 0 1px 1px;
   font-family: Serif;
+  background-color: white;
 }
 
 caption {
@@ -167,11 +129,20 @@ li {
 <h2 id="使い方">使い方</h2>
 <h3 id="コマンドライン">コマンドライン</h3>
 <p>Windowsの場合:</p>
-<pre><code>caffemd [style_name] input
+<pre><code>caffemd [options] files...
 </code></pre><p>MacまたはLinuxの場合:</p>
-<pre><code>caffemd.sh [style_name] input
+<pre><code>caffemd.sh [options] files...
 </code></pre><p>例(Windowsの場合):</p>
-<pre><code>caffemd default example.md
+<pre><code>caffemd -style default example.md
+</code></pre><h4 id="usage">Usage</h4>
+<pre><code>Usage: caffemd [options] file...
+Options:
+  -help               Display this information
+  -version            Display version information
+  -style &lt;style_name&gt; Set output style
+  -wkhtmltopdf &lt;wkhtmltopdf_path&gt;
+                      Set wkhtmltopdf execution path
+  -pdf                Output PDF file
 </code></pre><h3 id="gui-java-fx-">GUI(Java FX)</h3>
 <p>caffemdgui.bat or caffemdgui.shをクリックして起動してください</p>
 <h4 id="設定">設定</h4>
