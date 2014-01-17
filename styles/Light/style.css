@@ -144,6 +144,7 @@ td {
 
 caption {
   padding: 0.2em;
+  border-bottom: 1px #c0c0c0 solid;
   font-familly: SansSerif;
   font-weight: normal;
 }
