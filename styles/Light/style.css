@@ -143,14 +143,15 @@ td {
 }
 
 caption {
-  padding: 0.2em;
-  border-bottom: 1px #c0c0c0 solid;
+  margin: 0;
+  padding: 0.3em;
   font-familly: SansSerif;
   font-weight: normal;
 }
 
 hr {
   margin: 1em 0 1em 0;
+  border: solid 2px #c0c0c0;
 }
 
 li {
