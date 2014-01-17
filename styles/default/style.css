@@ -5,55 +5,60 @@ body {
 h1 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  font-family: SanSerif;
-  font-weight: normal;
+  font-size: 200%;
+  font-weight: bold;
 }
 
 h2 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  font-size: 140%;
-  font-family: SanSerif;
-  font-weight: normal;
+  font-size: 150%;
+  font-weight: bold;
 }
 
 h3 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  font-size: 130%;
-  font-family: SanSerif;
-  font-decoration: underline;
-  font-weight: normal;
+  font-size: 125%;
+  font-weight: bold;
 }
 
 h4 {
   margin: 0 0 1em 0;
-  font-size: 120%;
-  font-family: SanSerif;
-  font-decoration: underline;
-  font-weight: normal;
+  font-size: 100%;
+  font-weight: bold;
 }
 
 h5 {
-  margin: 0 0 1em 0;
+  margin: 0 0.5em 1em 0.5em;
   font-size: 100%;
-  font-family: SanSerif;
-  font-decoration: underline;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 h6 {
   margin: 0 1em 1em 1em;
   font-size: 100%;
-  font-weight: normal;
-  font-family: SanSerif;
+  font-weight: bold;
 }
 
 p {
   margin: 1em 1em 1em 1em;
-  font-family: Serif;
 }
- 
+
+em {
+ font-weight: normal;
+ font-decoration: italic;
+}
+
+storng {
+ font-weight: bold;
+ font-decoration: none;
+}
+
+code {
+  margin: 0;
+  padding: 0.3em;
+}
 
 pre {
   margin: 1em 1em 1em 1em;
@@ -80,20 +85,17 @@ table {
 
 th {
   padding: 0.2em;
-  font-family: SansSerif;
   font-weight: normal;
   text-align: center;
 }
 
 td {
   padding: 0.2em;
-  font-family: Serif;
-  backgrounc-color: white;
+  background-color: white;
 }
 
 caption {
   padding: 0.2em;
-  font-familly: SansSerif;
   font-weight: normal;
 }
 
@@ -103,5 +105,4 @@ hr {
 }
 
 li {
-  font-family: Serif;
 }

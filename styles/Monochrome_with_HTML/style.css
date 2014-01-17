@@ -7,6 +7,7 @@ h1 {
   padding: 0.2em;
   color: white;
   background-color: black;
+  font-size: 200%;
   font-family: SanSerif;
   font-weight: normal;
   text-shadow: none;
@@ -15,9 +16,9 @@ h1 {
 h2 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  font-size: 140%;
   color: white;
   background-color: black;
+  font-size: 150%;
   font-family: SanSerif;
   font-weight: normal;
   text-shadow: none;
@@ -26,31 +27,28 @@ h2 {
 h3 {
   margin: 1em 0 1em 0;
   padding: 0.2em;
-  font-size: 130%;
   color: white;
   background-color: black;
+  font-size: 125%;
   font-family: SanSerif;
-  font-decoration: underline;
   font-weight: normal;
   text-shadow: none;
 }
 
 h4 {
   margin: 0 0 1em 0;
-  font-size: 120%;
   border-bottom: solid 3px black;
+  font-size: 100%;
   font-family: SanSerif;
-  font-decoration: underline;
   font-weight: normal;
   text-shadow: none;
 }
 
 h5 {
-  margin: 0 0 1em 0;
+  margin: 0 0.5em 1em 0.5em;
+  border-bottom: solid 2px black;
   font-size: 100%;
-  border-bottom: solid 1px black;
   font-family: SanSerif;
-  font-decoration: underline;
   font-weight: normal;
   text-shadow: none;
 }
@@ -60,7 +58,7 @@ h6 {
   font-size: 100%;
   font-weight: normal;
   font-family: SanSerif;
-  font-decoration: underline;
+  text-decoration: underline;
   text-shadow: none;
 }
 
@@ -68,12 +66,26 @@ p {
   margin: 1em 1em 1em 1em;
   font-family: Serif;
 }
- 
+
+em {
+ font-weight: normal;
+ font-decoration: italic;
+}
+
+storng {
+ font-weight: bold;
+ font-decoration: none;
+}
+
+code {
+  margin: 0;
+  padding: 0.3em;
+}
 
 pre {
   margin: 1em 1em 1em 1em;
   padding: 1em;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   border: solid 1px black;
   font-size: 100%;
   color: #101010;
@@ -120,7 +132,7 @@ td {
   border: black solid;
   border-width: 0 0 1px 1px;
   font-family: Serif;
-  backgrounc-color: white;
+  background-color: white;
 }
 
 caption {
