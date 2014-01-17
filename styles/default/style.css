@@ -7,40 +7,40 @@ body h1:nth-child(1) {
 }
 
 h1 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   padding: 0.2em;
   font-size: 200%;
   font-weight: bold;
 }
 
 h2 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   padding: 0.2em;
   font-size: 150%;
   font-weight: bold;
 }
 
 h3 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   padding: 0.2em;
   font-size: 125%;
   font-weight: bold;
 }
 
 h4 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   font-size: 100%;
   font-weight: bold;
 }
 
 h5 {
-  margin: 2em 0.5em 0.5em 0.5em;
+  margin: 2em 0.5em 1em 0.5em;
   font-size: 100%;
   font-weight: bold;
 }
 
 h6 {
-  margin: 2em 1em 0.5em 1em;
+  margin: 2em 1em 1em 1em;
   font-size: 100%;
   font-weight: bold;
 }

@@ -3,11 +3,11 @@ body {
 }
 
 body h1:nth-child(1) {
-  margin: 0 0 0.5em 0;
+  margin: 0 0 1em 0;
 }
 
 h1 {
-  margin: 1.5em 0 0.5em 0;
+  margin: 1.5em 0 1em 0;
   padding: 0.2em;
   border-radius: 0.1em;
   color: white;
@@ -19,7 +19,7 @@ h1 {
 }
 
 h2 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   padding: 0.2em;
   border-radius: 0.15em;
   color: white;
@@ -31,7 +31,7 @@ h2 {
 }
 
 h3 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   padding: 0.2em;
   border-radius: 0.15em;
   color: white;
@@ -43,7 +43,7 @@ h3 {
 }
 
 h4 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1em 0;
   border-bottom: solid 3px black;
   font-size: 100%;
   font-family: SanSerif;
@@ -52,7 +52,7 @@ h4 {
 }
 
 h5 {
-  margin: 2em 0.5em 0.5em 0.5em;
+  margin: 2em 0.5em 1em 0.5em;
   border-bottom: solid 2px black;
   font-size: 100%;
   font-family: SanSerif;
@@ -61,7 +61,7 @@ h5 {
 }
 
 h6 {
-  margin: 2em 1em 0.5em 1em;
+  margin: 2em 1em 1em 1em;
   font-size: 100%;
   font-weight: normal;
   font-family: SanSerif;
