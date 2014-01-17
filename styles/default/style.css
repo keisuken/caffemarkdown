@@ -1,42 +1,46 @@
 body {
-  margin: 0 0.5em 0 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+body h1:nth-child(1) {
+  margin: 0 0 0.5em 0;
 }
 
 h1 {
-  margin: 1em 0 1em 0;
+  margin: 2em 0 0.5em 0;
   padding: 0.2em;
   font-size: 200%;
   font-weight: bold;
 }
 
 h2 {
-  margin: 1em 0 1em 0;
+  margin: 2em 0 0.5em 0;
   padding: 0.2em;
   font-size: 150%;
   font-weight: bold;
 }
 
 h3 {
-  margin: 1em 0 1em 0;
+  margin: 2em 0 0.5em 0;
   padding: 0.2em;
   font-size: 125%;
   font-weight: bold;
 }
 
 h4 {
-  margin: 0 0 1em 0;
+  margin: 2em 0 0.5em 0;
   font-size: 100%;
   font-weight: bold;
 }
 
 h5 {
-  margin: 0 0.5em 1em 0.5em;
+  margin: 2em 0.5em 0.5em 0.5em;
   font-size: 100%;
   font-weight: bold;
 }
 
 h6 {
-  margin: 0 1em 1em 1em;
+  margin: 2em 1em 0.5em 1em;
   font-size: 100%;
   font-weight: bold;
 }
@@ -100,8 +104,11 @@ caption {
 }
 
 hr {
-  margin: 1em 0 1em 0;
-  border: solid 2px #c0c0c0;
+  margin: 2em 0 2em 0;
+  padding: 1px 0 1px 0;
+  border: solid 1px #c0c0c0;
+  border-radius: 1px;
+  background-color: #c0c0c0;
 }
 
 li {
