@@ -47,6 +47,7 @@ h3 {
 
 h4 {
   margin: 2em 0 1em 0;
+  padding: 0.2em;
   border-bottom: solid 3px #c0c0c0;
   font-size: 100%;
   font-family: SanSerif;
@@ -56,6 +57,7 @@ h4 {
 
 h5 {
   margin: 2em 0.5em 1em 0.5em;
+  padding: 0.2em;
   border-bottom: solid 2px #c0c0c0;
   font-size: 100%;
   font-family: SanSerif;
@@ -65,6 +67,7 @@ h5 {
 
 h6 {
   margin: 2em 1em 1em 1em;
+  padding: 0.2em;
   font-size: 100%;
   font-weight: bold;
   font-family: SanSerif;
