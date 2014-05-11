@@ -69,6 +69,16 @@ object Markdown {
     generate(new File(home), styleName, new File(inpFile))
 
   /**
+   * Generate to raw elements.
+   * @param  source  markdown source.
+   * @param  options  marked option object.
+   * @return  generated raw DOM.
+   */
+  def generateRaw(
+    source: String, options: String = "{}"
+  ): String = (new Markdown).generateRaw(source, options)
+
+  /**
    * Create marked script engine.
    * @return  script engine.
    */
@@ -132,5 +142,19 @@ body +
 """  </body>
 </html>
 """
+  }
+
+  /**
+   * Generate to raw elements.
+   * @param  source  markdown source.
+   * @param  options  marked option object.
+   * @return  generated raw DOM.
+   */
+  def generateRaw(
+    source: String, options: String = "{}"
+  ): String = {
+    engine.eval("marked.setOptions(" + options + ");")
+    engine.put("source", source)
+    engine.eval("marked(source)").toString
   }
 }
